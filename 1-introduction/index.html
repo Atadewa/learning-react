@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Belajar React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+
+        function Header({author}){
+            return (<h1>Learn React with {author ? author : 'WPU'}</h1>);
+        }
+
+        function HomePage(){
+            const students = ['Aditya', 'Atadewa', 'Joko']
+            const [likes, setLikes] = React.useState(0);
+
+            function handleClick(){
+                setLikes(likes + 1);
+            }
+
+            return(
+                <div>
+                    <Header author="Adi"/>
+
+                    <ul>
+                        {
+                            students.map((student, index) => (
+                                <li key={student}>{student}</li>
+                            ))
+                        }
+                    </ul>
+
+                    <button onClick={handleClick}>Like({likes})</button>
+                </div>
+            )
+        }
+
+        root.render(<HomePage />);
+
+        // Hooks -> add logic to component
+        // setState() -> result array = [value, function to set value]
+    </script>
+</body>
+</html>
+
