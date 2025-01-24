@@ -45,7 +45,7 @@ export default function App() {
       <Header />
       <Form onAddItem={ handleAddItem }/>
       <GroceryList items={ items } onDeleteItem={ handleDeleteItem } onToggleItem={ handleToggleItem } onClearItems={ handleClearItems }/>
-      <Footer />
+      <Footer items={ items }/>
     </div>
   );
 }
@@ -96,12 +96,30 @@ function Form({ onAddItem }){
 }
 
 function GroceryList({ items, onDeleteItem, onToggleItem, onClearItems }){
+  const[sortBy, setSortBy] = useState('input')
+  
+  let sortedItems;
+
+  switch (sortBy) {
+    case 'name':
+      sortedItems = items.slice().sort((a, b) => a.name.localeCompare(b.name));
+      break;
+
+    case 'checked':
+      sortedItems = items.slice().sort((a, b) => a.checked-b.checked);
+      break;
+  
+    default:
+      sortedItems = items;
+      break;
+  }
+
   return(
     <>
       <div className="list">
         <ul>
           {
-            items.map((item) => 
+            sortedItems.map((item) => 
               <Item item={ item } key={item.id} onDeleteItem={ onDeleteItem } onToggleItem={ onToggleItem }/>
             )
           }
@@ -109,7 +127,7 @@ function GroceryList({ items, onDeleteItem, onToggleItem, onClearItems }){
       </div>
 
       <div className="actions">
-        <select>
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="input">Sort by input order</option>
           <option value="name">Sort by item name</option>
           <option value="checked">Sort by checked</option>
@@ -130,6 +148,10 @@ function Item({ item, onDeleteItem, onToggleItem }){
   );
 }
 
-function Footer(){
-  return <footer className="stats"> There are 10 items on the shopping list, 5 items have been purchased (50%) </footer>;
+function Footer({ items }){
+  const totalItems = items.length;
+  const checkedItems = items.filter((item) => item.checked === true).length;
+  const percentage = Math.round(checkedItems / totalItems * 100);
+
+  return <footer className="stats"> There are { totalItems } items on the shopping list, { checkedItems } items have been purchased ({ percentage }%) </footer>;
 }
