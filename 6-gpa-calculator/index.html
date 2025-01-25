@@ -11,13 +11,18 @@
         --color-secondary: #fec750;
       }
       @layer components {
-        input {
-          @apply border border-gray-300 rounded-md px-2 py-1 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500;
+        input, select {
+          @apply border border-gray-300 px-2 py-1 focus:outline-none placeholder:text-gray-400 focus:placeholder:text-gray-300;
+        }
+        input, select {
+          @apply px-2 py-1 focus:outline-none placeholder:text-gray-400 focus:placeholder:text-gray-300;
         }
         .btn-delete {
-          @apply bg-red-500 hover:cursor-pointer rounded-full text-white hover:bg-red-600 focus:text-black focus:ring-1 focus:ring-red-700 w-6 h-6 flex justify-center items-center text-sm;
+          @apply bg-red-500 hover:cursor-pointer rounded-full text-white hover:bg-red-600 focus:text-black w-6 h-6 flex justify-center items-center text-sm;
         }
-
+        .btn-add {
+          @apply bg-blue-500 text-white px-4 py-1 hover:bg-blue-600 rounded-xl text-sm hover:cursor-pointer focus:ring-1 focus:ring-sky-500;
+        }
       }
     </style>
     <title>GPA Calculator</title>
