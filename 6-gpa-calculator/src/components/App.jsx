@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Logo from './assets/calculator.svg';
+import Header from './Header';
 
 export default function App() {
   const [semesters, setSemesters] = useState([]);
@@ -78,10 +78,7 @@ export default function App() {
 
   return (
     <>
-      <header className='w-full p-5 flex items-center justify-start gap-5'>
-        <img src={Logo} alt="" className='w-15'/>
-        <p className='text-2xl font-bold'>GPA Calculator</p>
-      </header>
+      <Header />
 
       <div className='bg-white border border-sky-100 rounded m-3 shadow-md'>
         <button type="button" className=" mt-5 mx-5 btn-add" onClick={handleAddSemester}>Add Semester</button>
